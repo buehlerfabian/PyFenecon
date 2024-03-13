@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "pyfenecon"
+version = "0.1.0"
+description = ""
+authors = ["Fabian Bühler <buehler.fabian@gmx.de>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.31.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
