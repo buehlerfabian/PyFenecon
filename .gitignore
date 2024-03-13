@@ -3,6 +3,7 @@
 *.log
 
 temp.ipynb
+pyfeneconrc
 
 # Packages
 *.egg
