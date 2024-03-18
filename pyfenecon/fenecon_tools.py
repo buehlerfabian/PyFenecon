@@ -31,3 +31,35 @@ def get_State_of_charge():
     response = session.get(f"{REST_URL}/_sum/EssSoc")
     response.raise_for_status()
     return response
+
+
+def get_Battery_power():
+    session = requests.Session()
+    session.auth = (REST_USER, REST_PASSWORD)
+    response = session.get(f"{REST_URL}/_sum/EssActivePower")
+    response.raise_for_status()
+    return response
+
+
+def get_Grid_power():
+    session = requests.Session()
+    session.auth = (REST_USER, REST_PASSWORD)
+    response = session.get(f"{REST_URL}/_sum/GridActivePower")
+    response.raise_for_status()
+    return -response
+
+
+def get_PV_power():
+    session = requests.Session()
+    session.auth = (REST_USER, REST_PASSWORD)
+    response = session.get(f"{REST_URL}/_sum/ProductionActivePower")
+    response.raise_for_status()
+    return response
+
+
+def get_House_power():
+    session = requests.Session()
+    session.auth = (REST_USER, REST_PASSWORD)
+    response = session.get(f"{REST_URL}/_sum/ConsumptionActivePower")
+    response.raise_for_status()
+    return response
