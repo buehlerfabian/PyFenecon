@@ -37,7 +37,7 @@ def get_battery_power():
     response = session.get(f"{REST_URL}/_sum/EssActivePower")
     response.raise_for_status()
     session.close()
-    return json.loads(response.text)["value"]
+    return -json.loads(response.text)["value"]
 
 
 def get_grid_power():
