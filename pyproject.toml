@@ -13,6 +13,7 @@ toml = "^0.10.2"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.3"
+pytest = "^8.1.1"
 
 [build-system]
 requires = ["poetry-core"]
