@@ -52,7 +52,7 @@ def get_battery_power(config_number=1):
                            "/ess0/DcDischargePower")
     response.raise_for_status()
     session.close()
-    return json.loads(response.text)["value"]
+    return -json.loads(response.text)["value"]
 
 
 def get_grid_power(config_number=1):
