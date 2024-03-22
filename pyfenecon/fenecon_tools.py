@@ -17,60 +17,69 @@ except FileNotFoundError:
             'No pyfeneconrc file found in working directory'
             ' or in ~/.config directory.')
 
-REST_URL = f"{config['fenecon_url']}:80/rest/channel"
+REST_URL = f"{config['fenecon_url1']}:80/rest/channel"
 REST_USER = "x"
 REST_PASSWORD = "user"
 
 
-def get_status():
+def _get_rest_url(config_number=1):
+    url_key = f"fenecon_url{config_number}"
+    return f"{config[url_key]}:80/rest/channel"
+
+
+def get_status(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
-    response = session.get(f"{REST_URL}/.*/.*")
+    response = session.get(f"{_get_rest_url(config_number)}/.*/.*")
     response.raise_for_status()
     session.close()
     return json.loads(response.text)
 
 
-def get_state_of_charge():
+def get_state_of_charge(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
-    response = session.get(f"{REST_URL}/_sum/EssSoc")
+    response = session.get(f"{_get_rest_url(config_number)}/_sum/EssSoc")
     response.raise_for_status()
     session.close()
     return json.loads(response.text)["value"]
 
 
-def get_battery_power():
+def get_battery_power(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
-    response = session.get(f"{REST_URL}/ess0/DcDischargePower")
+    response = session.get(f"{_get_rest_url(config_number)}"
+                           "/ess0/DcDischargePower")
     response.raise_for_status()
     session.close()
     return json.loads(response.text)["value"]
 
 
-def get_grid_power():
+def get_grid_power(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
-    response = session.get(f"{REST_URL}/_sum/GridActivePower")
+    response = session.get(f"{_get_rest_url(config_number)}/"
+                           "_sum/GridActivePower")
     response.raise_for_status()
     session.close()
     return -json.loads(response.text)["value"]
 
 
-def get_pv_power():
+def get_pv_power(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
-    response = session.get(f"{REST_URL}/_sum/ProductionActivePower")
+    response = session.get(f"{_get_rest_url(config_number)}/"
+                           "_sum/ProductionActivePower")
     response.raise_for_status()
     session.close()
     return json.loads(response.text)["value"]
 
 
-def get_house_power():
+def get_house_power(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
-    response = session.get(f"{REST_URL}/_sum/ConsumptionActivePower")
+    response = session.get(f"{_get_rest_url(config_number)}/"
+                           "_sum/ConsumptionActivePower")
     response.raise_for_status()
     session.close()
     return json.loads(response.text)["value"]
