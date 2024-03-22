@@ -43,10 +43,10 @@ def get_state_of_charge():
 def get_battery_power():
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
-    response = session.get(f"{REST_URL}/_sum/EssActivePower")
+    response = session.get(f"{REST_URL}/ess0/DcDischargePower")
     response.raise_for_status()
     session.close()
-    return -json.loads(response.text)["value"]
+    return json.loads(response.text)["value"]
 
 
 def get_grid_power():
