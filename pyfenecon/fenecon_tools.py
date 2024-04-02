@@ -30,7 +30,8 @@ def _get_rest_url(config_number=1):
 def get_status(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
-    response = session.get(f"{_get_rest_url(config_number)}/.*/.*")
+    response = session.get(f"{_get_rest_url(config_number)}/.*/.*",
+                           timeout=3)
     response.raise_for_status()
     session.close()
     return json.loads(response.text)
@@ -39,7 +40,8 @@ def get_status(config_number=1):
 def get_state_of_charge(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
-    response = session.get(f"{_get_rest_url(config_number)}/_sum/EssSoc")
+    response = session.get(f"{_get_rest_url(config_number)}/_sum/EssSoc",
+                           timeout=3)
     response.raise_for_status()
     session.close()
     return json.loads(response.text)["value"]
@@ -49,7 +51,7 @@ def get_battery_power(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
     response = session.get(f"{_get_rest_url(config_number)}"
-                           "/ess0/DcDischargePower")
+                           "/ess0/DcDischargePower", timeout=3)
     response.raise_for_status()
     session.close()
     return -json.loads(response.text)["value"]
@@ -59,7 +61,7 @@ def get_grid_power(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
     response = session.get(f"{_get_rest_url(config_number)}/"
-                           "_sum/GridActivePower")
+                           "_sum/GridActivePower", timeout=3)
     response.raise_for_status()
     session.close()
     return -json.loads(response.text)["value"]
@@ -69,7 +71,7 @@ def get_pv_power(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
     response = session.get(f"{_get_rest_url(config_number)}/"
-                           "_sum/ProductionActivePower")
+                           "_sum/ProductionActivePower", timeout=3)
     response.raise_for_status()
     session.close()
     return json.loads(response.text)["value"]
@@ -79,7 +81,7 @@ def get_house_power(config_number=1):
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
     response = session.get(f"{_get_rest_url(config_number)}/"
-                           "_sum/ConsumptionActivePower")
+                           "_sum/ConsumptionActivePower", timeout=3)
     response.raise_for_status()
     session.close()
     return json.loads(response.text)["value"]
