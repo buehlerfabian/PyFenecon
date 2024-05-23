@@ -34,8 +34,11 @@ def _get_rest_url(config_number=1):
 def _update_values(config_number=1):
     global last_update, fenecon_values
 
-    if last_update is not None and time.time() - last_update < 1:
+    if (last_update is not None and time.time() - last_update < 1
+            and fenecon_values['config_number'] == config_number):
         return
+
+    fenecon_values['config_number'] = config_number
 
     session = requests.Session()
     session.auth = (REST_USER, REST_PASSWORD)
